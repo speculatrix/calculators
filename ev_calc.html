@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <script type="text/javascript" src="/js/lib/dummy.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+
+
+  <style id="compiled-css" type="text/css">
+  /* EOS */
+  </style>
+
+  <script id="insert"></script>
+
+
+  <script src="/js/stringify.js?58bb7b8dbc0491c3ebc41e98e386506022ebae62" charset="utf-8"></script>
+  <script>
+    const customConsole = (w) => {
+      const pushToConsole = (payload, type) => {
+        w.parent.postMessage({
+          console: {
+            payload: stringify(payload),
+            type:    type
+          }
+        }, "*")
+      }
+
+      w.onerror = (message, url, line, column) => {
+        // the line needs to correspond with the editor panel
+        // unfortunately this number needs to be altered every time this view is changed
+        line = line - 70
+        if (line < 0){
+          pushToConsole(message, "error")
+        } else {
+          pushToConsole(`[${line}:${column}] ${message}`, "error")
+        }
+      }
+
+        let console = (function(systemConsole){
+          return {
+            log: function(){
+              let args = Array.from(arguments)
+              pushToConsole(args, "log")
+              systemConsole.log.apply(this, args)
+            },
+            info: function(){
+              let args = Array.from(arguments)
+              pushToConsole(args, "info")
+              systemConsole.info.apply(this, args)
+            },
+            warn: function(){
+              let args = Array.from(arguments)
+              pushToConsole(args, "warn")
+              systemConsole.warn.apply(this, args)
+            },
+            error: function(){
+              let args = Array.from(arguments)
+              pushToConsole(args, "error")
+              systemConsole.error.apply(this, args)
+            },
+            system: function(arg){
+              pushToConsole(arg, "system")
+            },
+            clear: function(){
+              systemConsole.clear.apply(this, {})
+            },
+            time: function(){
+              let args = Array.from(arguments)
+              systemConsole.time.apply(this, args)
+            },
+            assert: function(assertion, label){
+              if (!assertion){
+                pushToConsole(label, "log")
+              }
+
+              let args = Array.from(arguments)
+              systemConsole.assert.apply(this, args)
+            }
+          }
+        }(window.console))
+
+        window.console = { ...window.console, ...console }
+
+        console.system("Running fiddle")
+      }
+
+      if (window.parent){
+        customConsole(window)
+      }
+    </script>
+</head>
+<body>
+      <div id="calc">
+        <input type="number" id="num1" placeholder="Enter a number"/>
+	<br />
+        <select id="operator" >
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+	<br />
+        <input type="number" id="num2" placeholder="Enter a number" />
+	<br />
+        <button id="calc_btn">=</button>
+        <input type="number" id="result" placeholder="Result" />
+    </div>
+   
+   <br />
+
+This was based on 
+<a href="https://10code.dev/javascript/a-simple-calculator-in-vanilla-javascript/">Calculator Tutorial by 10code.dev</a>
+
+    <script type="text/javascript">//<![CDATA[
+
+
+class Calculator {
+    num1
+    num2
+    result
+
+    constructor(firstInput,secondInput,resultInput,calcButton,operatorSelect) {
+        this.num1Input = document.getElementById(firstInput); 
+        this.num2Input = document.getElementById(secondInput);
+        this.resultInput = document.getElementById(resultInput);
+        this.calcButton = document.getElementById(calcButton);
+        this.operatorSelect = document.getElementById(operatorSelect);
+
+        const _t = this;
+        this.calcButton.onclick = function () {
+            _t.num1 = parseInt(_t.num1Input.value);
+            _t.num2 = parseInt(_t.num2Input.value);
+
+            let operator = _t.operatorSelect.value;
+
+            if (operator == "+") {
+                _t.add();
+            } else if (operator == "-") {
+                _t.subtract();
+            } else if (operator == "*") {
+                _t.multiply();
+            } else if (operator == "/") {
+                _t.divide();
+            }
+
+            _t.output();
+        };
+    }
+
+
+    add() {
+        this.result = this.num1 + this.num2
+    }
+    subtract() {
+        this.result = this.num1 - this.num2
+    }
+    multiply() {
+        this.result = this.num1 * this.num2
+    }
+    divide() {
+        this.result = this.num1 / this.num2
+    }
+
+
+    output() {
+        this.resultInput.value = this.result;
+    }
+}
+
+
+new Calculator('num1', 'num2', 'result', 'calc_btn', 'operator');
+
+  //]]></script>
+
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: "4yrzu31x"
+      }], "*")
+    }
+
+    // always overwrite window.name, in case users try to set it manually
+    window.name = "result"
+  </script>
+
+    <script>
+      let allLines = []
+
+      window.addEventListener("message", (message) => {
+        if (message.data.console){
+          let insert = document.querySelector("#insert")
+          allLines.push(message.data.console.payload)
+          insert.innerHTML = allLines.join(";\r")
+
+          let result = eval.call(null, message.data.console.payload)
+          if (result !== undefined){
+            console.log(result)
+          }
+        }
+      })
+    </script>
+
+</body>
+</html>
