@@ -38,7 +38,7 @@
           </tr>
           <tr>
             <td>Fuel cost &pound;/litre</td>
-            <td><input type="number" id="fuel_per_litre" size="4" maxlength="4" value="1.50" />
+            <td><input type="number" id="litre_cost" size="4" maxlength="4" value="1.50" />
           </tr>
           <tr>
             <td>Cost p/mile</td>
@@ -59,6 +59,10 @@
           <tr>
             <td>You can drive this many miles in your EV</td>
             <td><div id="ev_distance"></div></td>
+          </tr>
+          <tr>
+            <td>You can drive this many miles in your ICE</td>
+            <td><div id="ice_distance"></div></td>
           </tr>
         </table>
       </td>
@@ -85,15 +89,16 @@ function to_float(b) {
 }
 
 function calculate_result() {
-    var ev_eff         = to_float(document.getElementById('ev_eff').value);
-    var kwh_cost       = to_float(document.getElementById('kwh_cost').value);
-    var ice_eff        = to_float(document.getElementById('ice_eff').value);
-    var cost_of_item   = to_float(document.getElementById('cost_of_item').value);
-    var fuel_per_litre = to_float(document.getElementById('fuel_per_litre').value);
+    var ev_eff       = to_float(document.getElementById('ev_eff').value);
+    var kwh_cost     = to_float(document.getElementById('kwh_cost').value);
+    var ice_eff      = to_float(document.getElementById('ice_eff').value);
+    var cost_of_item = to_float(document.getElementById('cost_of_item').value);
+    var litre_cost   = to_float(document.getElementById('litre_cost').value);
 
     document.getElementById('ev_cost_per_mile').innerHTML = kwh_cost / ev_eff;
-    document.getElementById('ice_cost_per_mile').innerHTML = fuel_per_litre * 4.55 * 100.0 / ice_eff ;
+    document.getElementById('ice_cost_per_mile').innerHTML = litre_cost * 4.55 * 100.0 / ice_eff ;
     document.getElementById('ev_distance').innerHTML = cost_of_item * ev_eff * 100.0 / kwh_cost;
+    document.getElementById('ice_distance').innerHTML = cost_of_item * ice_eff / litre_cost / 4.55;
 }
 
 document.getElementById('run').addEventListener('click', calculate_result);
