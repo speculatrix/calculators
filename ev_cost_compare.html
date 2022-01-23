@@ -3,47 +3,64 @@
   <title>EV Cost Compare</title>
 </head>
 <body>
-  <table align="center" border="1">
+  <!-- form action="" -->
+  <table align="center" border="0">
     <tr>
-      <td>
-        Efficiency in mi/kWh
+      <th colspan="1">About Your EV</th>
+      <th colspan="1">How many miles for...</th>
+    </tr>
+    <tr>
+      <td align="top">
+        <table border="1">
+          <tr align="top">
+            <td>Efficiency in mi/kWh</td>
+            <td><input type="number" id="param1" size="4" maxlength="4" value="3.5" />
+            </td>
+          </tr>
+          <tr>
+            <td>Energy cost in p/kWh</td>
+            <td><input type="number" id="param2" size="4" maxlength="4" value="7.5" />
+            </td>
+          </tr>
+          <tr>
+            <td>Cost p/mile:</td>
+            <td><div id="result1"></div></td>
+          </tr>
+        </table>
       </td>
-      <td><input type="number" id="param1" placeholder="efficiency in mi/kWh" value="3.5" />
-     </td>
-   </tr>
-   <tr>
-     <td>Cost per kWh</td>
-      <td><input type="number" id="param2" placeholder="cost per kWh in" value="0.05" />
-     </td>
-   </tr>
-   <tr>
-     <td>Compare with</td>
-     <td><select id="param3" >
-            <option value="0.85">£0.85 - 1st class stamp</option>
-         </select>
-     </td>
-   </tr>
-   <tr>
-     <td colspan="2" align="center">
+      <td align="top">
+        <table border="1">
+          <tr>
+            <td><select id="param3" >
+                  <option value="0.85">£0.85 - 1st class stamp</option>
+                  <option value="3.50">£3.50 - fancy coffee</option>
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              You can drive this far in your EV for that:
+              <div id="result2"></div> miles
+            </td>
+          </tr>
+        </table>
+      <td>
+    <tr>
+      <td colspan="2" align="center">
         <button id="run">run</button>
-     </td>
-   </tr>
-   <tr>
-     <td colspan="2">
-        You can drive this far in your EV for that:
-        <div id="result1"></div> miles
-     </td>
-   </tr>
-</table>
+      </td>
+    </tr>
+  </table>
+  <!-- /form -->
 
 <script>
 
 // Javascript script to convert the string value to float Value
 // Function to convert the string to float value
 function to_float(b) {
-	// Type conversion of string to float
-	var floatValue = +(b);
-	return floatValue;
+  // javascript programmers hate this one trick
+  var floatValue = +(b);
+  return floatValue;
 }
 
 function calculate_result() {
@@ -51,9 +68,8 @@ function calculate_result() {
     var param2 = to_float(document.getElementById('param2').value);
     var param3 = to_float(document.getElementById('param2').value);
 
-    //var result = param1 + param2;
-
-    document.getElementById('result1').innerHTML = param3 * param1 / param2;
+    document.getElementById('result1').innerHTML = param2 / param1;
+    document.getElementById('result2').innerHTML = param1 * param2 * 100.0 / param2;
 }
 
 document.getElementById('run').addEventListener('click', calculate_result);
@@ -61,3 +77,6 @@ document.getElementById('run').addEventListener('click', calculate_result);
 
 </body>
 </html>
+<!--
+#vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
+-->
