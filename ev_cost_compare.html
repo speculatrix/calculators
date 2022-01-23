@@ -75,8 +75,9 @@
   </table>
   <!-- /form -->
 <hr />
+<p>results are rounded to two decimal places.</p>
 <p>This calculator needs no cookies, doesn't log anything to my webserver as it's entirely javascript based, so there's no GDPR requirement other than you loading the page</p>
-<p>(c) 2022 Paul Mansfield, source released under GPL v3</p>
+<p>(c) 2022 Paul Mansfield, <a href="https://github.com/speculatrix/motoring_calculators">source</a> released under GPL v3</p>
 
 <script>
 
@@ -95,10 +96,10 @@ function calculate_result() {
     var cost_of_item = to_float(document.getElementById('cost_of_item').value);
     var litre_cost   = to_float(document.getElementById('litre_cost').value);
 
-    document.getElementById('ev_cost_per_mile').innerHTML = kwh_cost / ev_eff;
-    document.getElementById('ice_cost_per_mile').innerHTML = litre_cost * 4.55 * 100.0 / ice_eff ;
-    document.getElementById('ev_distance').innerHTML = cost_of_item * ev_eff * 100.0 / kwh_cost;
-    document.getElementById('ice_distance').innerHTML = cost_of_item * ice_eff / litre_cost / 4.55;
+    document.getElementById('ev_cost_per_mile').innerHTML = (kwh_cost / ev_eff).toFixed(2);
+    document.getElementById('ice_cost_per_mile').innerHTML = (litre_cost * 4.55 * 100.0 / ice_eff).toFixed(2);
+    document.getElementById('ev_distance').innerHTML = (cost_of_item * ev_eff * 100.0 / kwh_cost).toFixed(2);
+    document.getElementById('ice_distance').innerHTML = (cost_of_item * ice_eff / litre_cost / 4.55).toFixed(2);
 }
 
 document.getElementById('run').addEventListener('click', calculate_result);
