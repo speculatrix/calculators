@@ -1,0 +1,63 @@
+<html>
+<head>
+  <title>EV Cost Compare</title>
+</head>
+<body>
+  <table align="center" border="1">
+    <tr>
+      <td>
+        Efficiency in mi/kWh
+      </td>
+      <td><input type="number" id="param1" placeholder="efficiency in mi/kWh" value="3.5" />
+     </td>
+   </tr>
+   <tr>
+     <td>Cost per kWh</td>
+      <td><input type="number" id="param2" placeholder="cost per kWh in" value="0.05" />
+     </td>
+   </tr>
+   <tr>
+     <td>Compare with</td>
+     <td><select id="param3" >
+            <option value="0.85">£0.85 - 1st class stamp</option>
+         </select>
+     </td>
+   </tr>
+   <tr>
+     <td colspan="2" align="center">
+        <button id="run">run</button>
+     </td>
+   </tr>
+   <tr>
+     <td colspan="2">
+        You can drive this far in your EV for that:
+        <div id="result1"></div> miles
+     </td>
+   </tr>
+</table>
+
+<script>
+
+// Javascript script to convert the string value to float Value
+// Function to convert the string to float value
+function to_float(b) {
+	// Type conversion of string to float
+	var floatValue = +(b);
+	return floatValue;
+}
+
+function calculate_result() {
+    var param1 = to_float(document.getElementById('param1').value);
+    var param2 = to_float(document.getElementById('param2').value);
+    var param3 = to_float(document.getElementById('param2').value);
+
+    //var result = param1 + param2;
+
+    document.getElementById('result1').innerHTML = param3 * param1 / param2;
+}
+
+document.getElementById('run').addEventListener('click', calculate_result);
+</script>
+
+</body>
+</html>
