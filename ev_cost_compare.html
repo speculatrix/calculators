@@ -3,6 +3,26 @@
   <title>EV Cost Compare</title>
 </head>
 <body>
+<style type="text/css">
+  body {
+    background-color: #f0f0f0;
+  }
+
+  input {
+    background-color: #f0f0f0;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-style: hidden;
+  }
+
+  table td, table th {
+    border: 1px solid black;
+    background-color: #f0f0f0;
+  }
+</style>
+
   <!-- form action="" -->
   <table align="center" border="0">
     <tr>
@@ -33,7 +53,7 @@
         <table border="1">
           <tr valign="top">
             <td>Efficiency in mi/gallon</td>
-            <td><input type="number" id="ice_eff" size="4" maxlength="4" value="40.0" />
+            <td><input type="number" id="ice_eff" size="4" maxlength="4" value="45.0" />
             </td>
           </tr>
           <tr>
@@ -51,8 +71,12 @@
           <tr>
             <td>Compare with</td>
             <td><select id="cost_of_item">
+                  <option value="0.66">&pound;0.66 - 2nd class stamp</option>
                   <option value="0.85">&pound;0.85 - 1st class stamp</option>
+                  <option value="3.29">&pound;3.29 - Big Mac</option>
+                  <option value="5.19">&pound;5.19 - Big Mac Large Meal</option>
                   <option value="3.50">&pound;3.50 - fancy coffee</option>
+                  <option value="5.50">&pound;5.50 - pint of beer</option>
                 </select>
             </td>
           </tr>
@@ -75,7 +99,7 @@
   </table>
   <!-- /form -->
 <hr />
-<p>results are rounded to two decimal places.</p>
+<p>Results are rounded to two decimal places. This service comes with no warranty for accuracy or errors, this is not financial advice.</p>
 <p>This calculator needs no cookies, doesn't log anything to my webserver as it's entirely javascript based, so there's no GDPR requirement other than you loading the page</p>
 <p>(c) 2022 Paul Mansfield, <a href="https://github.com/speculatrix/motoring_calculators">source</a> released under GPL v3</p>
 
