@@ -7,6 +7,7 @@
   <table align="center" border="0">
     <tr>
       <th colspan="1">About Your EV</th>
+      <th colspan="1">Compare with ICE</th>
       <th colspan="1">How many miles for...</th>
     </tr>
     <tr>
@@ -14,37 +15,55 @@
         <table border="1">
           <tr align="top">
             <td>Efficiency in mi/kWh</td>
-            <td><input type="number" id="param1" size="4" maxlength="4" value="3.5" />
+            <td><input type="number" id="ev_eff" size="4" maxlength="4" value="3.5" />
             </td>
           </tr>
           <tr>
             <td>Energy cost in p/kWh</td>
-            <td><input type="number" id="param2" size="4" maxlength="4" value="7.5" />
+            <td><input type="number" id="kwh_cost" size="4" maxlength="4" value="7.5" />
             </td>
           </tr>
           <tr>
-            <td>Cost p/mile:</td>
-            <td><div id="result1"></div></td>
+            <td>Cost p/mile</td>
+            <td><div id="ev_cost_per_mile"></div></td>
+          </tr>
+        </table>
+      </td>
+      <td align="top">
+        <table border="1">
+          <tr align="top">
+            <td>Efficiency in mi/gallon</td>
+            <td><input type="number" id="ice_eff" size="4" maxlength="4" value="40.0" />
+            </td>
+          </tr>
+          <tr>
+            <td>Fuel cost £/litre</td>
+            <td><input type="number" id="fuel_per_litre" size="4" maxlength="4" value="1.50" />
+          </tr>
+          <tr>
+            <td>Cost p/mile</td>
+	    <td><div id="ice_cost_per_mile"></div></td>
           </tr>
         </table>
       </td>
       <td align="top">
         <table border="1">
           <tr>
-            <td><select id="param3" >
+            <td>Compare with</td>
+	    <td><select id="cost_of_item" >
+
                   <option value="0.85">£0.85 - 1st class stamp</option>
                   <option value="3.50">£3.50 - fancy coffee</option>
                 </select>
             </td>
           </tr>
           <tr>
-            <td>
-              You can drive this far in your EV for that:
-              <div id="result2"></div> miles
-            </td>
+            <td>You can drive this many miles in your EV</td>
+            <td><div id="ev_distance"></div></td>
           </tr>
         </table>
-      <td>
+      </td>
+    </tr>
     <tr>
       <td colspan="2" align="center">
         <button id="run">run</button>
@@ -64,12 +83,15 @@ function to_float(b) {
 }
 
 function calculate_result() {
-    var param1 = to_float(document.getElementById('param1').value);
-    var param2 = to_float(document.getElementById('param2').value);
-    var param3 = to_float(document.getElementById('param2').value);
+    var ev_eff         = to_float(document.getElementById('ev_eff').value);
+    var kwh_cost       = to_float(document.getElementById('kwh_cost').value);
+    var ice_eff        = to_float(document.getElementById('ice_eff').value);
+    var cost_of_item   = to_float(document.getElementById('cost_of_item').value);
+    var fuel_per_litre = to_float(document.getElementById('fuel_per_litre').value);
 
-    document.getElementById('result1').innerHTML = param2 / param1;
-    document.getElementById('result2').innerHTML = param1 * param2 * 100.0 / param2;
+    document.getElementById('ev_cost_per_mile').innerHTML = kwh_cost / ev_eff;
+    document.getElementById('ice_cost_per_mile').innerHTML = fuel_per_litre * 4.55 * 100.0 / ice_eff ;
+    document.getElementById('ev_distance').innerHTML = cost_of_item * ev_eff * 100.0 / kwh_cost;
 }
 
 document.getElementById('run').addEventListener('click', calculate_result);
