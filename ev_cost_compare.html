@@ -1,9 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>EV Cost Compare</title>
-</head>
-<body>
-<style type="text/css">
+<style>
   body {
     background-color: #f0f0f0;
   }
@@ -22,6 +21,8 @@
     background-color: #f0f0f0;
   }
 </style>
+</head>
+<body>
 
   <!-- form action="" -->
   <table align="center" border="0">
@@ -35,12 +36,12 @@
         <table border="1">
           <tr valign="top">
             <td>Efficiency in mi/kWh</td>
-            <td><input type="number" id="ev_eff" size="4" maxlength="4" value="3.5" />
+            <td><input type="number" id="ev_eff" value="3.5" />
             </td>
           </tr>
           <tr>
             <td>Energy cost in p/kWh</td>
-            <td><input type="number" id="kwh_cost" size="4" maxlength="4" value="7.5" />
+            <td><input type="number" id="kwh_cost" value="7.5" />
             </td>
           </tr>
           <tr>
@@ -53,12 +54,12 @@
         <table border="1">
           <tr valign="top">
             <td>Efficiency in mi/gallon</td>
-            <td><input type="number" id="ice_eff" size="4" maxlength="4" value="45.0" />
+            <td><input type="number" id="ice_eff" value="45.0" />
             </td>
           </tr>
           <tr>
             <td>Fuel cost &pound;/litre</td>
-            <td><input type="number" id="litre_cost" size="4" maxlength="4" value="1.50" />
+            <td><input type="number" id="litre_cost" value="1.50" />
           </tr>
           <tr>
             <td>Cost p/mile</td>
