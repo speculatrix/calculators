@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>EV Cost Compare</title>
+<style>
+  body {
+    background-color: #f0f0f0;
+  }
+
+  input {
+    background-color: #f0f0f0;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-style: hidden;
+  }
+
+  table td, table th {
+    border: 1px solid black;
+    background-color: #f0f0f0;
+  }
+</style>
+</head>
+<body>
+
+  <!-- form action="" -->
+  <table align="center" border="0">
+    <tr>
+      <th colspan="1">About Your EV</th>
+      <th colspan="1">Compare with ICE</th>
+      <th colspan="1">How many miles for...</th>
+    </tr>
+    <tr>
+      <td valign="top">
+        <table border="1">
+          <tr valign="top">
+            <td>Efficiency in mi/kWh</td>
+            <td><input type="number" id="ev_eff" value="3.5" />
+            </td>
+          </tr>
+          <tr>
+            <td>Energy cost in c/kWh</td>
+            <td><input type="number" id="kwh_cost" value="9.0" />
+            </td>
+          </tr>
+          <tr>
+            <td>Cost c/mile</td>
+            <td><div id="ev_cost_per_mile"></div></td>
+          </tr>
+        </table>
+      </td>
+      <td valign="top">
+        <table border="1">
+          <tr valign="top">
+            <td>Efficiency in mi/gallon</td>
+            <td><input type="number" id="ice_eff" value="30.0" />
+            </td>
+          </tr>
+          <tr>
+            <td>Fuel cost $/gallon</td>
+            <td><input type="number" id="gallon_cost" value="3.40" />
+          </tr>
+          <tr>
+            <td>Cost c/mile</td>
+            <td><div id="ice_cost_per_mile"></div></td>
+          </tr>
+        </table>
+      </td>
+      <td valign="top">
+        <table border="1">
+          <tr>
+            <td>Compare with</td>
+            <td><select id="cost_of_item">
+                  <option value="1.00">$1.00 - postage stamp</option>
+                  <option value="4.00">$4.00 - Big Mac</option>
+                  <option value="6.00">$6.00 - Big Mac Large Meal</option>
+                  <option value="5.00">$5.00 - fancy coffee</option>
+                  <option value="6.00">$6.00 - pint of beer</option>
+                </select>
+            </td>
+          </tr>
+          <tr>
+            <td>You can drive this many miles in your EV</td>
+            <td><div id="ev_distance"></div></td>
+          </tr>
+          <tr>
+            <td>You can drive this many miles in your ICE</td>
+            <td><div id="ice_distance"></div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" align="center">
+        <button id="run">run</button>
+      </td>
+    </tr>
+  </table>
+  <!-- /form -->
+<hr />
+<p>Note that this doesn't include the cost difference in maintenance between EV and ICE, nor possible savings for some cities' congestion zones etc; it's just the energy needed to drive the vehicle</p>
+<p>Results are rounded to two decimal places. This service comes with no warranty for accuracy or errors, this is not financial advice.</p>
+<p>This calculator needs no cookies, doesn't log your data to my webserver as it's entirely javascript based, but the webserver does log your accessing the page, so there's no GDPR requirement</p>
+<p>(c) 2022 Paul Mansfield, <a href="https://github.com/speculatrix/motoring_calculators">source</a> released under <a href="https://github.com/speculatrix/motoring_calculators/blob/main/LICENSE">GPL v3</a></p>
+
+<script>
+
+// Javascript script to convert the string value to float Value
+// Function to convert the string to float value
+function to_float(b) {
+  // javascript programmers hate this one trick
+  var floatValue = +(b);
+  return floatValue;
+}
+
+function calculate_result() {
+    var ev_eff       = to_float(document.getElementById('ev_eff').value);
+    var kwh_cost     = to_float(document.getElementById('kwh_cost').value);
+    var ice_eff      = to_float(document.getElementById('ice_eff').value);
+    var cost_of_item = to_float(document.getElementById('cost_of_item').value);
+    var gallon_cost   = to_float(document.getElementById('gallon_cost').value);
+
+    document.getElementById('ev_cost_per_mile').innerHTML = (kwh_cost / ev_eff).toFixed(2);
+    document.getElementById('ice_cost_per_mile').innerHTML = (gallon_cost * 100.0 / ice_eff).toFixed(2);
+    document.getElementById('ev_distance').innerHTML = (cost_of_item * ev_eff * 100.0 / kwh_cost).toFixed(2);
+    document.getElementById('ice_distance').innerHTML = (cost_of_item * ice_eff / gallon_cost).toFixed(2);
+}
+
+document.getElementById('run').addEventListener('click', calculate_result);
+</script>
+
+</body>
+</html>
+<!--
+#vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2
+-->
