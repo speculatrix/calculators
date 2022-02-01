@@ -119,7 +119,7 @@ function calculate_result() {
     var kwh_cost     = to_float(document.getElementById('kwh_cost').value);
     var ice_eff      = to_float(document.getElementById('ice_eff').value);
     var cost_of_item = to_float(document.getElementById('cost_of_item').value);
-    var gallon_cost   = to_float(document.getElementById('gallon_cost').value);
+    var gallon_cost  = to_float(document.getElementById('gallon_cost').value);
 
     document.getElementById('ev_cost_per_mile').innerHTML = (kwh_cost / ev_eff).toFixed(2);
     document.getElementById('ice_cost_per_mile').innerHTML = (gallon_cost * 100.0 / ice_eff).toFixed(2);
